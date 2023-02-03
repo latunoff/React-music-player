@@ -40,7 +40,9 @@ const mapDispatchToProps = {
     songPreview: viewActions.songPreview,
     changeLocation: viewActions.changeLocation,
     showMessage: viewActions.showMessage,
-    togglePassiveMode: settingsActions.togglePassiveMode
+    togglePassiveMode: settingsActions.togglePassiveMode,
+    changeActiveCategory: viewActions.changeActiveCategory,
+    changeActiveIndex: viewActions.changeActiveIndex,
   }
 
 const secondsToSetSongActive = 300;
@@ -128,6 +130,7 @@ export class MusicPlayerBind extends Component {
 
                 if (this.props.isPassiveMode && !this.pause) {
                     this.props.changeLocation(`${response.category}/${response.folder}`);
+                    this.props.changeActiveIndex(response.folder);
                     this.playCurrentSong(response.id);
                     this.playAfterClick();
                 }
@@ -273,13 +276,13 @@ export class MusicPlayerBind extends Component {
                 <MdPlayCircleOutline size={160} onClick={ this.playAfterClick } />
             </div>
 
-            <div className='current_song'>
+            <div className={ 'current_song' + (this.props.isPassiveMode ? ' passive' : '') }>
                 <GiMusicSpell className={ this.state.currentSong.range > secondsToSetSongActive ? '' : 'spinner'} /> { this.state.currentSong.name }
             </div>
 
             <label className="switch">
                 <input type="checkbox" onChange={this.onTogglePassiveMode} />
-                <span className="slider">Passive</span>
+                <span className={ "slider" + (this.props.isPassiveMode ? ' passive' : '') }>Passive</span>
             </label>
 
             <AudioPlayer
