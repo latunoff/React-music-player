@@ -112,7 +112,6 @@ export class MusicPlayerBind extends Component {
                 this.props.setQueue(list);
             }
         }
-        // console.log('play', song, this.props.queue);
         this.props.setPlaying(song, 0);
     }
 

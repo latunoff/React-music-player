@@ -240,9 +240,10 @@ const writeCurrentSong = (req, res) => {
 const readCurrentSong = (req, res) => {
     const data = fs.readFileSync(currentSongFile, { encoding: 'utf8' });
     const time = fs.statSync(currentSongFile);
-    const out = { ...JSON.parse(data), time: time.mtime };
+    let out = '';
+    if (data) out = JSON.stringify({ ...JSON.parse(data), time: time.mtime });
     // console.log('out', out);
-    res.end(JSON.stringify(out));
+    res.end(out);
 
     // fs.watchFile(currentSongFile, (curr, prev) => {
     //     console.log(`the current mtime is: ${curr.mtime}`);
