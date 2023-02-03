@@ -238,11 +238,14 @@ const writeCurrentSong = (req, res) => {
 }
 
 const readCurrentSong = (req, res) => {
-    const data = fs.readFileSync(currentSongFile, { encoding: 'utf8' });
-    const time = fs.statSync(currentSongFile);
     let out = '';
-    if (data) out = JSON.stringify({ ...JSON.parse(data), time: time.mtime });
-    // console.log('out', out);
+    if (fs.existsSync(currentSongFile)) {
+        const data = fs.readFileSync(currentSongFile, { encoding: 'utf8' });
+        const time = fs.statSync(currentSongFile);
+        
+        if (data) out = JSON.stringify({ ...JSON.parse(data), time: time.mtime });
+        // console.log('out', out);
+    }
     res.end(out);
 
     // fs.watchFile(currentSongFile, (curr, prev) => {
