@@ -135,7 +135,12 @@ export class MusicPlayerBind extends Component {
                     this.playAfterClick();
                 }
 
-                this.setState({ currentSong: { name: response.name }});
+                this.setState({
+                    currentSong: {
+                        name: response.name,
+                        range: response.range
+                     }
+                });
                 if (navigator.mediaSession.metadata) navigator.mediaSession.metadata.album = response.name;
             }
         });
@@ -268,6 +273,7 @@ export class MusicPlayerBind extends Component {
             musicPath = musicItem && musicItem.path;
             musicPath = encodeURI(musicPath);
         }
+
         return(
           <div ref={this.ref} 
             className={ ("audio_player" + (this.props.nowPlaying.item > '' ? ' playing' : ''))}>
@@ -277,7 +283,7 @@ export class MusicPlayerBind extends Component {
             </div>
 
             <div className={ 'current_song' + (this.props.isPassiveMode ? ' passive' : '') }>
-                <GiMusicSpell className={ this.state.currentSong.range > secondsToSetSongActive ? '' : 'spinner'} /> { this.state.currentSong.name }
+                <GiMusicSpell className={ this.state.currentSong.range > secondsToSetSongActive ? '' : 'spinner' } /> { this.state.currentSong.name }
             </div>
 
             <label className="switch">
