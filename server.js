@@ -26,7 +26,7 @@ const handler = (req, res) => {
     }
 
     // console.log('method', req.method.toLowerCase(), dest);
-    if(req.method.toLowerCase() === 'get') {
+    if(req.method && req.method.toLowerCase() === 'get') {
         switch(dest) {
             case '/getPlaylists':
                 getPlaylists(req, res);
