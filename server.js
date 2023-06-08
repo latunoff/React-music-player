@@ -46,7 +46,7 @@ const handler = (req, res) => {
             default:
                 res.end();
         }
-    } else if(req.method.toLowerCase() === 'post') {
+    } else if(req.method && req.method.toLowerCase() === 'post') {
         switch(dest) {
             case '/addPlaylist':
                 addPlaylist(req, res);
